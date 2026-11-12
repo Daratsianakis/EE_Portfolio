@@ -96,38 +96,33 @@
     return el;
   };
 
-  make("text", { x: 210, y: 24, fill: "#94a3b8", "font-family": "monospace", "font-size": 12, "text-anchor": "middle" }, "MODELING / CONTROL LOOP");
-
   const blocks = [
-    { x: 14, y: 86, w: 88, h: 58, label: ["INPUT"], color: "#3b82f6" },
-    { x: 148, y: 70, w: 124, h: 90, label: ["MODEL", "PROCESS"], color: "#22d3ee" },
-    { x: 318, y: 86, w: 88, h: 58, label: ["OUTPUT"], color: "#4ade80" },
-    { x: 306, y: 176, w: 112, h: 34, label: ["SENSING"], color: "#a78bfa" }
+    { x: 20, y: 92, w: 82, h: 54, label: "INPUT", color: "#3b82f6" },
+    { x: 150, y: 72, w: 120, h: 94, label: "MODEL", color: "#22d3ee" },
+    { x: 320, y: 92, w: 82, h: 54, label: "OUTPUT", color: "#4ade80" },
+    { x: 298, y: 176, w: 120, h: 36, label: "SENSING", color: "#a78bfa" }
   ];
 
   blocks.forEach((block) => {
     make("rect", { x: block.x, y: block.y, width: block.w, height: block.h, rx: 8, fill: "#1e293b", stroke: block.color, "stroke-width": 2.2 });
-    if (block.label.length === 1) {
-      make("text", { x: block.x + block.w / 2, y: block.y + block.h / 2 + 5, fill: "#e2e8f0", "font-size": 12, "font-family": "monospace", "text-anchor": "middle", "font-weight": 700 }, block.label[0]);
-    } else {
-      make("text", { x: block.x + block.w / 2, y: block.y + block.h / 2 - 6, fill: "#e2e8f0", "font-size": 12, "font-family": "monospace", "text-anchor": "middle", "font-weight": 700 }, block.label[0]);
-      make("text", { x: block.x + block.w / 2, y: block.y + block.h / 2 + 12, fill: "#e2e8f0", "font-size": 12, "font-family": "monospace", "text-anchor": "middle", "font-weight": 700 }, block.label[1]);
-    }
+    make("text", { x: block.x + block.w / 2, y: block.y + block.h / 2 + 5, fill: "#e2e8f0", "font-size": 12, "font-family": "monospace", "text-anchor": "middle", "font-weight": 700 }, block.label);
   });
 
+  // Underlay paths
   const basePaths = [
-    { d: "M 102 115 L 148 115", color: "#334155", width: 6 },
-    { d: "M 272 115 L 318 115", color: "#334155", width: 6 },
-    { d: "M 362 144 L 362 176", color: "#334155", width: 5 },
-    { d: "M 306 193 L 286 193 Q 252 193 252 170 L 252 160", color: "#334155", width: 5 }
+    { d: "M 102 119 L 150 119", width: 6 },
+    { d: "M 270 119 L 320 119", width: 6 },
+    { d: "M 361 146 L 361 176", width: 5 },
+    { d: "M 298 194 L 250 194 Q 218 194 218 166 L 218 148", width: 5 }
   ];
-  basePaths.forEach((p) => make("path", { d: p.d, fill: "none", stroke: p.color, "stroke-width": p.width, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+  basePaths.forEach((p) => make("path", { d: p.d, fill: "none", stroke: "#334155", "stroke-width": p.width, "stroke-linecap": "round", "stroke-linejoin": "round" }));
 
+  // Animated signal paths
   const animatedPaths = [
-    { d: "M 102 115 L 148 115", color: "#3b82f6", delay: 0 },
-    { d: "M 272 115 L 318 115", color: "#4ade80", delay: 0.7 },
-    { d: "M 362 144 L 362 176", color: "#22d3ee", delay: 1.2 },
-    { d: "M 306 193 L 286 193 Q 252 193 252 170 L 252 160", color: "#a78bfa", delay: 1.7 }
+    { d: "M 102 119 L 150 119", color: "#3b82f6", delay: 0 },
+    { d: "M 270 119 L 320 119", color: "#4ade80", delay: 0.7 },
+    { d: "M 361 146 L 361 176", color: "#22d3ee", delay: 1.2 },
+    { d: "M 298 194 L 250 194 Q 218 194 218 166 L 218 148", color: "#a78bfa", delay: 1.7 }
   ];
   animatedPaths.forEach((p) => {
     const path = make("path", { d: p.d, stroke: p.color, "stroke-width": 3, fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-dasharray": "9 8" });
@@ -135,13 +130,4 @@
     for (const [key, value] of Object.entries({ attributeName: "stroke-dashoffset", values: "34;0", dur: "1.8s", begin: `${p.delay}s`, repeatCount: "indefinite" })) animate.setAttribute(key, value);
     path.appendChild(animate);
   });
-
-  [[58, 154, "#3b82f6"], [210, 170, "#22d3ee"], [362, 154, "#4ade80"], [252, 204, "#a78bfa"]].forEach(([cx, cy, color]) => {
-    make("circle", { cx, cy, r: 4.2, fill: color });
-  });
-
-  [[58, 220, "REFERENCE"], [210, 220, "MODELING"], [362, 220, "OUTPUT"], [252, 204, ""]].forEach(([x, y, label]) => {
-    if (label) make("text", { x, y, fill: "#64748b", "font-family": "monospace", "font-size": 10, "text-anchor": "middle" }, label);
-  });
-  make("text", { x: 252, y: 220, fill: "#64748b", "font-family": "monospace", "font-size": 10, "text-anchor": "middle" }, "FEEDBACK");
 })();
