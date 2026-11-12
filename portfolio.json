@@ -1,0 +1,45 @@
+{
+  "profile": {
+    "name": "Electrical Engineering Portfolio",
+    "eyebrow": "ENGINEERING / PROJECT PORTFOLIO",
+    "role": "Electrical Engineering Student",
+    "location": "Pullman, Washington",
+    "tagline": "Digital design, embedded systems, and hands-on engineering projects.",
+    "about": "Electrical Engineering student at WSU focused on systems engineering, communications, controls, and signal processing. Hands-on experience installing solar arrays and generators, making electrical connections, and troubleshooting power optimizers and microinverters. Built FPGA-based digital systems, real-time audio processing hardware, and GPU-accelerated fluid simulations using Unity, C#, and HLSL. Seeking Summer 2027 internships in advanced energy, controls, and engineering research.",
+    "email": "J.Daratsianakis@wsu.edu",
+    "education": "B.S. in Electrical Engineering — systems engineering emphasis in communications, controls, and signal processing, Washington State University, in progress.",
+    "interests": [
+      "FPGA & Digital Logic",
+      "Embedded Systems",
+      "Signal Processing",
+      "Electronics"
+    ],
+    "resume_url": ""
+  },
+  "projects": [
+    {
+      "name": "FPGA Simulator Hub",
+      "description": "Interactive browser-based FPGA digital logic architecture simulators and visual learning tools.",
+      "url": "https://daratsianakis.github.io/FPGA_Simulator_Hub_Project/",
+      "source_url": "https://github.com/Daratsianakis/FPGA_Simulator_Hub_Project",
+      "tags": [
+        "FPGA",
+        "Verilog",
+        "JavaScript"
+      ],
+      "featured": true
+    }
+  ],
+  "links": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/Daratsianakis",
+      "kind": "github"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "www.linkedin.com/in/joshua-daratsianakis-35a5b92b3",
+      "kind": "linkedin"
+    }
+  ]
+}

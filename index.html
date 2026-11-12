@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Electrical engineering student portfolio and technical projects">
+  <title>Electrical Engineering Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="site_data.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-6">
+  <div class="max-w-7xl w-full">
+    <header class="topbar mb-6 border-b border-slate-700 pb-5 flex flex-col md:flex-row justify-between md:items-end gap-5">
+      <div>
+        <p class="mono text-xs tracking-widest text-cyan-400 mb-2" id="eyebrow">ENGINEERING / PROJECT PORTFOLIO</p>
+        <h1 id="site-name" class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">Electrical Engineering Portfolio</h1>
+        <p id="site-role" class="text-slate-400 text-sm">Electrical Engineering Student</p>
+      </div>
+      <nav aria-label="Main navigation" class="flex flex-wrap gap-2">
+        <a class="nav-btn" href="#about">About</a>
+        <a class="nav-btn" href="#projects">Projects</a>
+        <a class="nav-btn" href="#links">Professional Links</a>
+      </nav>
+    </header>
+
+    <main class="flex flex-col gap-6 pb-12">
+      <section class="panel hero p-6 md:p-8 shadow-xl" aria-labelledby="hero-title">
+        <div class="flex flex-col lg:flex-row items-start gap-8 justify-between">
+          <div class="max-w-3xl">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="led led-on" aria-hidden="true"></span>
+              <span class="mono text-xs text-green-400 tracking-widest">PORTFOLIO ONLINE</span>
+            </div>
+            <h2 id="hero-title" class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">Building systems from <span class="text-cyan-400">logic</span> to <span class="text-blue-400">hardware</span>.</h2>
+            <p id="tagline" class="text-slate-300 text-base md:text-lg leading-relaxed">Digital design, embedded systems, and hands-on engineering projects.</p>
+            <div id="hero-actions" class="flex flex-wrap gap-3 mt-7">
+              <a class="primary-btn" href="#projects">Explore Projects</a>
+              <a class="secondary-btn" href="#links">Professional Links</a>
+            </div>
+          </div>
+          <div class="signal-frame" aria-label="Animated engineering system diagram">
+            <div class="mono text-xs text-slate-400 mb-3 flex justify-between"><span>SYSTEM OVERVIEW</span><span class="text-green-400" id="pulse-label">ACTIVE</span></div>
+            <svg id="system-svg" viewBox="0 0 420 220" role="img" aria-label="Input, processing, and output blocks linked by animated signal paths"></svg>
+            <div class="flex justify-between text-xs mono text-slate-500 mt-2"><span>INPUT</span><span>PROCESSING</span><span>OUTPUT</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <section id="about" class="panel p-6 lg:col-span-2 scroll-mt-5" aria-labelledby="about-heading">
+          <div class="section-head"><h2 id="about-heading">About Me</h2><span class="section-code">01 / PROFILE</span></div>
+          <p id="about-text" class="text-slate-300 leading-relaxed whitespace-pre-line"></p>
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="subpanel"><div class="meta-label">EDUCATION</div><div id="education" class="text-sm text-slate-200 leading-relaxed"></div></div>
+            <div class="subpanel"><div class="meta-label">LOCATION</div><div id="location" class="text-sm text-slate-200"></div></div>
+          </div>
+        </section>
+        <section class="panel p-6" aria-labelledby="focus-heading">
+          <div class="section-head"><h2 id="focus-heading">Technical Focus</h2><span class="section-code">02 / SKILLS</span></div>
+          <div id="interests" class="flex flex-wrap gap-2"></div>
+          <div class="separator"></div>
+          <p class="mono text-xs text-slate-500">DESIGN • BUILD • TEST • ITERATE</p>
+        </section>
+      </div>
+
+      <section id="projects" class="panel p-6 scroll-mt-5" aria-labelledby="projects-heading">
+        <div class="section-head"><h2 id="projects-heading">Projects</h2><span id="project-count" class="section-code">00 / PROJECTS</span></div>
+        <p class="text-slate-400 text-sm mb-6">Explore selected engineering projects, demonstrations, and source repositories. Project links open in a new tab.</p>
+        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      </section>
+
+      <section id="links" class="panel p-6 scroll-mt-5" aria-labelledby="links-heading">
+        <div class="section-head"><h2 id="links-heading">Professional Links</h2><span class="section-code">03 / CONNECT</span></div>
+        <p class="text-slate-400 text-sm mb-6">Profiles, publications, channels, and professional resources.</p>
+        <div id="links-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-700 pt-5 pb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 mono">
+      <span id="footer-name">Engineering Portfolio</span><span>HTML5 / Tailwind CSS / JavaScript / SVG</span>
+    </footer>
+  </div>
+</body>
+</html>
