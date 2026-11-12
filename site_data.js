@@ -4,15 +4,17 @@ window.PORTFOLIO_DATA = {
     "eyebrow": "ENGINEERING / PROJECT PORTFOLIO",
     "role": "Electrical Engineering Student",
     "location": "Pullman, Washington",
-    "tagline": "Digital design, embedded systems, and hands-on engineering projects.",
+    "tagline": "Systems engineering, computational physics, advanced energy, and the intersection of hardware, software, and applied mathematics.",
     "about": "Electrical Engineering student at WSU focused on systems engineering, communications, controls, and signal processing. Hands-on experience installing solar arrays and generators, making electrical connections, and troubleshooting power optimizers and microinverters. Built FPGA-based digital systems, real-time audio processing hardware, and GPU-accelerated fluid simulations using Unity, C#, and HLSL. Seeking Summer 2027 internships in advanced energy, controls, and engineering research.",
     "email": "J.Daratsianakis@wsu.edu",
     "education": "B.S. in Electrical Engineering — systems engineering emphasis in communications, controls, and signal processing, Washington State University, in progress.",
     "interests": [
-      "FPGA & Digital Logic",
-      "Embedded Systems",
       "Signal Processing",
-      "Electronics"
+      "Control Systems",
+      "Multiphysics Modeling",
+      "FPGA & Digital Logic",
+      "Embedded Electronic Systems",
+      "Engineering Design"
     ],
     "resume_url": ""
   },
