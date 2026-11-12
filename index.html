@@ -28,7 +28,7 @@
 
     <main class="flex flex-col gap-6 pb-12">
       <section class="panel hero p-6 md:p-8 shadow-xl" aria-labelledby="hero-title">
-        <div class="flex flex-col lg:flex-row items-start gap-8 justify-between">
+        <div class="hero-layout">
           <div class="max-w-3xl">
             <div class="flex items-center gap-3 mb-5">
               <span class="led led-on" aria-hidden="true"></span>
@@ -42,8 +42,8 @@
             </div>
           </div>
           <div class="signal-frame" aria-label="Animated engineering system diagram">
-            <div class="mono text-xs text-slate-400 mb-3 flex justify-between"><span>SYSTEM CONTROL</span><span class="text-green-400" id="pulse-label">ACTIVE</span></div>
-            <svg id="system-svg" viewBox="0 0 420 200" role="img" aria-label="Animated system control loop diagram"></svg>
+            <div class="mono text-xs text-slate-400 mb-3 flex justify-between"><span>FEEDBACK CONTROL SYSTEM</span><span class="text-green-400" id="pulse-label">ACTIVE</span></div>
+            <svg id="system-svg" viewBox="0 0 540 205" role="img" aria-label="Desired output and sensor feedback enter comparison, then pass through controller, actuator, process, and output"></svg>
           </div>
         </div>
       </section>

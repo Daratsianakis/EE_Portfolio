@@ -86,72 +86,68 @@
   }
   if (!activeLinks) links.appendChild(element("div", "empty-state", "Professional links will appear here when their URLs are added."));
 
+  // Compact, responsive closed-loop diagram. Every coordinate is inside a 540x205 viewBox.
   const svg = byId("system-svg");
   const ns = "http://www.w3.org/2000/svg";
-  const make = (tag, attributes, label) => {
-    const node = document.createElementNS(ns, tag);
-    for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
-    if (label !== undefined) node.textContent = label;
-    svg.appendChild(node);
-    return node;
+  const make = (tag, attrs, value, parent = svg) => {
+    const item = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([name, attr]) => item.setAttribute(name, String(attr)));
+    if (value !== undefined) item.textContent = value;
+    parent.appendChild(item);
+    return item;
+  };
+  const defs = make("defs", {});
+  const colors = { reference: "#60a5fa", control: "#22d3ee", plant: "#4ade80", feedback: "#a78bfa" };
+  Object.entries(colors).forEach(([name, color]) => {
+    const marker = make("marker", {
+      id: `fc-arrow-${name}`, viewBox: "0 0 10 10", refX: 8, refY: 5,
+      markerWidth: 5, markerHeight: 5, orient: "auto"
+    }, undefined, defs);
+    make("path", { d: "M 1 1 L 9 5 L 1 9 Z", fill: color }, undefined, marker);
+  });
+  const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
+  const label = (value, x, y, attrs = {}) => make("text", {
+    x, y, "text-anchor": "middle", "font-family": mono,
+    "font-size": 11, fill: "#cbd5e1", ...attrs
+  }, value);
+  const block = (name, x, y, w, h, color, fontSize = 12) => {
+    make("rect", { x, y, width: w, height: h, rx: 6,
+      fill: "#1e293b", stroke: color, "stroke-width": 2 });
+    label(name, x + w / 2, y + h / 2 + fontSize * .34, {
+      "font-size": fontSize, fill: "#f8fafc", "font-weight": 700
+    });
+  };
+  const wire = (pathData, type, duration = 2.2) => {
+    make("path", { d: pathData, fill: "none", stroke: "#334155",
+      "stroke-width": 4.6, "stroke-linecap": "round", "stroke-linejoin": "round" });
+    const animated = make("path", { d: pathData, fill: "none", stroke: colors[type],
+      "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round",
+      "stroke-dasharray": "8 7", "marker-end": `url(#fc-arrow-${type})` });
+    make("animate", { attributeName: "stroke-dashoffset", values: "30;0",
+      dur: `${duration}s`, repeatCount: "indefinite" }, undefined, animated);
   };
 
-  // Reference -> comparison -> controller -> plant -> output.
-  // Measured output -> sensor -> negative input of comparison.
-  const wires = [
-    { d: "M 10 79 H 47", color: "#3b82f6" },
-    { d: "M 75 79 H 104", color: "#22d3ee" },
-    { d: "M 184 79 H 225", color: "#22d3ee" },
-    { d: "M 325 79 H 407", color: "#4ade80" },
-    { d: "M 370 79 V 157 H 283", color: "#a78bfa" },
-    { d: "M 183 157 H 61 V 93", color: "#a78bfa" }
-  ];
+  // Labels and the plant surround stay inside the SVG boundary.
+  label("DESIRED OUTPUT", 57, 47, { "font-size": 10, fill: "#94a3b8" });
+  label("ACTUAL OUTPUT", 500, 35, { "font-size": 10, fill: "#94a3b8" });
+  label("PLANT", 407, 40, { "font-size": 10, fill: "#94a3b8" });
+  make("rect", { x: 316, y: 45, width: 185, height: 80, rx: 9,
+    fill: "#0c2c31", stroke: "#155e75", "stroke-width": 1.3 });
 
-  // Background wires and animated direction-indicating pulses.
-  wires.forEach(({ d, color }, index) => {
-    make("path", {
-      d, fill: "none", stroke: "#334155", "stroke-width": 6,
-      "stroke-linecap": "round", "stroke-linejoin": "round"
-    });
-    const path = make("path", {
-      d, fill: "none", stroke: color, "stroke-width": 3.2,
-      "stroke-dasharray": "8 10", "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    });
-    const animation = document.createElementNS(ns, "animate");
-    for (const [key, value] of Object.entries({
-      attributeName: "stroke-dashoffset",
-      values: index === 4 || index === 5 ? "0;-36" : "36;0",
-      dur: "1.7s", repeatCount: "indefinite"
-    })) animation.setAttribute(key, value);
-    path.appendChild(animation);
-  });
+  // Feedback arrives on the second, parallel input to Comparison.
+  wire("M 93 68 H 124", "reference");
+  wire("M 93 99 H 124", "feedback");
+  wire("M 203 84 H 222", "control");
+  wire("M 304 84 H 331", "control");
+  wire("M 404 84 H 424", "plant");
+  wire("M 496 84 H 526", "plant");
+  wire("M 510 84 V 167 H 384", "feedback");
+  wire("M 290 167 H 93 V 99", "feedback");
 
-  const blocks = [
-    { x: 104, y: 53, width: 80, height: 52, label: "CONTROL", color: "#22d3ee" },
-    { x: 225, y: 53, width: 100, height: 52, label: "MODEL", color: "#4ade80" },
-    { x: 183, y: 137, width: 100, height: 40, label: "SENSOR", color: "#a78bfa" }
-  ];
-
-  blocks.forEach((block) => {
-    make("rect", {
-      x: block.x, y: block.y, width: block.width, height: block.height,
-      rx: 7, fill: "#1e293b", stroke: block.color, "stroke-width": 2.3
-    });
-    make("text", {
-      x: block.x + block.width / 2, y: block.y + block.height / 2 + 4.5,
-      fill: "#e2e8f0", "font-size": 12, "font-family": "monospace",
-      "text-anchor": "middle", "font-weight": 700
-    }, block.label);
-  });
-
-  // Summing junction uses a reference and negative feedback.
-  make("circle", { cx: 61, cy: 79, r: 14, fill: "#1e293b", stroke: "#3b82f6", "stroke-width": 2.5 });
-  make("text", { x: 61, y: 83, fill: "#e2e8f0", "font-size": 15, "font-weight": 700, "text-anchor": "middle", "font-family": "monospace" }, "Σ");
-  make("text", { x: 45, y: 67, fill: "#93c5fd", "font-size": 12, "font-weight": 700, "font-family": "monospace" }, "+");
-  make("text", { x: 71, y: 108, fill: "#c4b5fd", "font-size": 13, "font-weight": 700, "font-family": "monospace" }, "−");
-  make("circle", { cx: 370, cy: 79, r: 4.2, fill: "#4ade80" });
-
-  // Keep arrows on the external reference and output wires only.
-  make("path", { d: "M 407 79 l -8 -5 v 10 z", fill: "#4ade80" });
+  block("COMPARISON", 124, 57, 79, 54, colors.reference, 10.6);
+  block("CONTROLLER", 222, 57, 82, 54, colors.control, 10.4);
+  block("ACTUATOR", 331, 57, 73, 54, colors.plant, 10.2);
+  block("PROCESS", 424, 57, 72, 54, colors.plant, 10.8);
+  block("SENSOR", 290, 147, 94, 40, colors.feedback, 11);
+  make("circle", { cx: 510, cy: 84, r: 3.1, fill: colors.plant });
 })();
