@@ -88,46 +88,70 @@
 
   const svg = byId("system-svg");
   const ns = "http://www.w3.org/2000/svg";
-  const make = (tag, props, label) => {
-    const el = document.createElementNS(ns, tag);
-    Object.entries(props).forEach(([key, value]) => el.setAttribute(key, String(value)));
-    if (label !== undefined) el.textContent = label;
-    svg.appendChild(el);
-    return el;
+  const make = (tag, attributes, label) => {
+    const node = document.createElementNS(ns, tag);
+    for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
+    if (label !== undefined) node.textContent = label;
+    svg.appendChild(node);
+    return node;
   };
 
+  // Reference -> comparison -> controller -> plant -> output.
+  // Measured output -> sensor -> negative input of comparison.
+  const wires = [
+    { d: "M 10 79 H 47", color: "#3b82f6" },
+    { d: "M 75 79 H 104", color: "#22d3ee" },
+    { d: "M 184 79 H 225", color: "#22d3ee" },
+    { d: "M 325 79 H 407", color: "#4ade80" },
+    { d: "M 370 79 V 157 H 283", color: "#a78bfa" },
+    { d: "M 183 157 H 61 V 93", color: "#a78bfa" }
+  ];
+
+  // Background wires and animated direction-indicating pulses.
+  wires.forEach(({ d, color }, index) => {
+    make("path", {
+      d, fill: "none", stroke: "#334155", "stroke-width": 6,
+      "stroke-linecap": "round", "stroke-linejoin": "round"
+    });
+    const path = make("path", {
+      d, fill: "none", stroke: color, "stroke-width": 3.2,
+      "stroke-dasharray": "8 10", "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    });
+    const animation = document.createElementNS(ns, "animate");
+    for (const [key, value] of Object.entries({
+      attributeName: "stroke-dashoffset",
+      values: index === 4 || index === 5 ? "0;-36" : "36;0",
+      dur: "1.7s", repeatCount: "indefinite"
+    })) animation.setAttribute(key, value);
+    path.appendChild(animation);
+  });
+
   const blocks = [
-    { x: 20, y: 92, w: 82, h: 54, label: "INPUT", color: "#3b82f6" },
-    { x: 150, y: 72, w: 120, h: 94, label: "MODEL", color: "#22d3ee" },
-    { x: 320, y: 92, w: 82, h: 54, label: "OUTPUT", color: "#4ade80" },
-    { x: 298, y: 176, w: 120, h: 36, label: "SENSING", color: "#a78bfa" }
+    { x: 104, y: 53, width: 80, height: 52, label: "CONTROL", color: "#22d3ee" },
+    { x: 225, y: 53, width: 100, height: 52, label: "MODEL", color: "#4ade80" },
+    { x: 183, y: 137, width: 100, height: 40, label: "SENSOR", color: "#a78bfa" }
   ];
 
   blocks.forEach((block) => {
-    make("rect", { x: block.x, y: block.y, width: block.w, height: block.h, rx: 8, fill: "#1e293b", stroke: block.color, "stroke-width": 2.2 });
-    make("text", { x: block.x + block.w / 2, y: block.y + block.h / 2 + 5, fill: "#e2e8f0", "font-size": 12, "font-family": "monospace", "text-anchor": "middle", "font-weight": 700 }, block.label);
+    make("rect", {
+      x: block.x, y: block.y, width: block.width, height: block.height,
+      rx: 7, fill: "#1e293b", stroke: block.color, "stroke-width": 2.3
+    });
+    make("text", {
+      x: block.x + block.width / 2, y: block.y + block.height / 2 + 4.5,
+      fill: "#e2e8f0", "font-size": 12, "font-family": "monospace",
+      "text-anchor": "middle", "font-weight": 700
+    }, block.label);
   });
 
-  // Underlay paths
-  const basePaths = [
-    { d: "M 102 119 L 150 119", width: 6 },
-    { d: "M 270 119 L 320 119", width: 6 },
-    { d: "M 361 146 L 361 176", width: 5 },
-    { d: "M 298 194 L 250 194 Q 218 194 218 166 L 218 148", width: 5 }
-  ];
-  basePaths.forEach((p) => make("path", { d: p.d, fill: "none", stroke: "#334155", "stroke-width": p.width, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+  // Summing junction uses a reference and negative feedback.
+  make("circle", { cx: 61, cy: 79, r: 14, fill: "#1e293b", stroke: "#3b82f6", "stroke-width": 2.5 });
+  make("text", { x: 61, y: 83, fill: "#e2e8f0", "font-size": 15, "font-weight": 700, "text-anchor": "middle", "font-family": "monospace" }, "Σ");
+  make("text", { x: 45, y: 67, fill: "#93c5fd", "font-size": 12, "font-weight": 700, "font-family": "monospace" }, "+");
+  make("text", { x: 71, y: 108, fill: "#c4b5fd", "font-size": 13, "font-weight": 700, "font-family": "monospace" }, "−");
+  make("circle", { cx: 370, cy: 79, r: 4.2, fill: "#4ade80" });
 
-  // Animated signal paths
-  const animatedPaths = [
-    { d: "M 102 119 L 150 119", color: "#3b82f6", delay: 0 },
-    { d: "M 270 119 L 320 119", color: "#4ade80", delay: 0.7 },
-    { d: "M 361 146 L 361 176", color: "#22d3ee", delay: 1.2 },
-    { d: "M 298 194 L 250 194 Q 218 194 218 166 L 218 148", color: "#a78bfa", delay: 1.7 }
-  ];
-  animatedPaths.forEach((p) => {
-    const path = make("path", { d: p.d, stroke: p.color, "stroke-width": 3, fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-dasharray": "9 8" });
-    const animate = document.createElementNS(ns, "animate");
-    for (const [key, value] of Object.entries({ attributeName: "stroke-dashoffset", values: "34;0", dur: "1.8s", begin: `${p.delay}s`, repeatCount: "indefinite" })) animate.setAttribute(key, value);
-    path.appendChild(animate);
-  });
+  // Keep arrows on the external reference and output wires only.
+  make("path", { d: "M 407 79 l -8 -5 v 10 z", fill: "#4ade80" });
 })();
