@@ -1,86 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="Electrical engineering student portfolio and technical projects">
-  <title>Electrical Engineering Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/style.css">
-  <script defer src="site_data.js"></script>
-  <script defer src="assets/app.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Electrical engineering projects, systems, and applied computational work">
+<title>Electrical Engineering Portfolio</title>
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="site_data.js"></script>
+<script defer src="assets/app.js"></script>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4 md:p-6">
-  <div class="max-w-7xl w-full">
-    <header class="topbar mb-6 border-b border-slate-700 pb-5 flex flex-col md:flex-row justify-between md:items-end gap-5">
-      <div>
-        <p class="mono text-xs tracking-widest text-cyan-400 mb-2" id="eyebrow">ENGINEERING / PROJECT PORTFOLIO</p>
-        <h1 id="site-name" class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">Electrical Engineering Portfolio</h1>
-        <p id="site-role" class="text-slate-400 text-sm">Electrical Engineering Student</p>
-      </div>
-      <nav aria-label="Main navigation" class="flex flex-wrap gap-2">
-        <a class="nav-btn" href="#about">About</a>
-        <a class="nav-btn" href="#projects">Projects</a>
-        <a class="nav-btn" href="#links">Professional Links</a>
-      </nav>
-    </header>
-
-    <main class="flex flex-col gap-6 pb-12">
-      <section class="panel hero p-6 md:p-8 shadow-xl" aria-labelledby="hero-title">
-        <div class="hero-layout">
-          <div class="max-w-3xl">
-            <div class="flex items-center gap-3 mb-5">
-              <span class="led led-on" aria-hidden="true"></span>
-              <span class="mono text-xs text-green-400 tracking-widest">PORTFOLIO ONLINE</span>
-            </div>
-            <h2 id="hero-title" class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">Engineering systems from <span class="text-cyan-400">field work</span> to <span class="text-blue-400">feedback</span>.</h2>
-            <p id="tagline" class="text-slate-300 text-base md:text-lg leading-relaxed">Controls, signal processing, computational modeling, and hands-on electrical work.</p>
-            <div id="hero-actions" class="flex flex-wrap gap-3 mt-7">
-              <a class="primary-btn" href="#projects">Explore Projects</a>
-              <a class="secondary-btn" href="#links">Professional Links</a>
-            </div>
-          </div>
-          <div class="signal-frame" aria-label="Animated engineering system diagram">
-            <div class="mono text-xs text-slate-400 mb-3 flex justify-between"><span>FEEDBACK CONTROL SYSTEM</span><span class="text-green-400" id="pulse-label">ACTIVE</span></div>
-            <svg id="system-svg" viewBox="0 0 540 205" role="img" aria-label="Desired output and sensor feedback enter comparison, then pass through controller, actuator, process, and output"></svg>
-          </div>
-        </div>
-      </section>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <section id="about" class="panel p-6 lg:col-span-2 scroll-mt-5" aria-labelledby="about-heading">
-          <div class="section-head"><h2 id="about-heading">About Me</h2><span class="section-code">01 / PROFILE</span></div>
-          <p id="about-text" class="text-slate-300 leading-relaxed whitespace-pre-line"></p>
-          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="subpanel"><div class="meta-label">EDUCATION</div><div id="education" class="text-sm text-slate-200 leading-relaxed"></div></div>
-            <div class="subpanel"><div class="meta-label">LOCATION</div><div id="location" class="text-sm text-slate-200"></div></div>
-          </div>
-        </section>
-        <section class="panel p-6" aria-labelledby="focus-heading">
-          <div class="section-head"><h2 id="focus-heading">Technical Focus</h2><span class="section-code">02 / SKILLS</span></div>
-          <div id="interests" class="flex flex-wrap gap-2"></div>
-          <div class="separator"></div>
-          <p class="mono text-xs text-slate-500">EMPATHIZE • DESIGN • BUILD • TEST • ITERATE</p>
-        </section>
-      </div>
-
-      <section id="projects" class="panel p-6 scroll-mt-5" aria-labelledby="projects-heading">
-        <div class="section-head"><h2 id="projects-heading">Projects</h2><span id="project-count" class="section-code">00 / PROJECTS</span></div>
-        <p class="text-slate-400 text-sm mb-6">Explore selected engineering projects, demonstrations, and source repositories. Project links open in a new tab.</p>
-        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
-      </section>
-
-      <section id="links" class="panel p-6 scroll-mt-5" aria-labelledby="links-heading">
-        <div class="section-head"><h2 id="links-heading">Professional Links</h2><span class="section-code">03 / CONNECT</span></div>
-        <p class="text-slate-400 text-sm mb-6">Profiles, publications, channels, and professional resources.</p>
-        <div id="links-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
-      </section>
-    </main>
-
-    <footer class="border-t border-slate-700 pt-5 pb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 mono">
-      <span id="footer-name">Engineering Portfolio</span><span>HTML5 / Tailwind CSS / JavaScript / SVG</span>
-    </footer>
+<body>
+<div class="page-shell">
+ <header class="topbar">
+  <div class="brand-wrap">
+   <div class="brand-prefix mono" id="eyebrow">ENGINEERING / PROJECT PORTFOLIO</div>
+   <h1 id="site-name">Electrical Engineering Portfolio</h1>
+   <p id="site-role">Electrical Engineering Student</p>
   </div>
+  <nav class="nav" aria-label="Main navigation"><a class="nav-btn" href="#about">About</a><a class="nav-btn" href="#projects">Projects</a><a class="nav-btn" href="#links">Professional Links</a></nav>
+ </header>
+ <main>
+  <section class="hero panel" aria-labelledby="hero-title">
+   <div class="hero-layout">
+    <div class="hero-copy">
+     <div class="status mono"><span class="led led-on" aria-hidden="true"></span> PORTFOLIO ONLINE <span class="hero-index">/ EE—01</span></div>
+     <h2 id="hero-title">Engineering systems from <span class="accent-a">field work</span> to <span class="accent-b">feedback</span>.</h2>
+     <p id="tagline">Systems engineering, computational physics, advanced energy, and the intersection of hardware, software, and applied mathematics.</p>
+     <div id="hero-actions"><a class="primary-btn" href="#projects">Explore Projects <span aria-hidden="true">↗</span></a><a class="secondary-btn" href="#links">Professional Links</a></div>
+    </div>
+    <aside class="signal-frame" aria-label="Animated feedback control system">
+     <div class="signal-head mono"><span>FEEDBACK CONTROL SYSTEM</span><span class="signal-state" id="pulse-label">ACTIVE</span></div>
+     <svg id="system-svg" viewBox="0 0 540 205" role="img" aria-label="Desired output and feedback enter comparison; controller, actuator, process and sensor form a closed loop"></svg>
+    </aside>
+   </div>
+  </section>
+  <div class="profile-row">
+   <section class="panel about" id="about" aria-labelledby="about-heading">
+    <div class="section-head"><div><span class="kicker mono">PROFILE / 01</span><h2 id="about-heading">About Me</h2></div><span class="section-code mono">01 / PROFILE</span></div>
+    <p id="about-text"></p>
+    <div class="info-grid"><div class="subpanel"><div class="meta-label mono">EDUCATION</div><div id="education"></div></div><div class="subpanel"><div class="meta-label mono">LOCATION</div><div id="location"></div></div></div>
+   </section>
+   <section class="panel focus" aria-labelledby="focus-heading">
+    <div class="section-head"><div><span class="kicker mono">CAPABILITIES / 02</span><h2 id="focus-heading">Technical Focus</h2></div><span class="section-code mono">02 / SKILLS</span></div>
+    <div id="interests" class="tags"></div>
+    <div class="focus-footer mono">EMPATHIZE <b>·</b> DESIGN <b>·</b> BUILD <b>·</b> TEST <b>·</b> ITERATE</div>
+   </section>
+  </div>
+  <section id="projects" class="panel projects" aria-labelledby="projects-heading">
+   <div class="section-head"><div><span class="kicker mono">SELECTED WORK / 03</span><h2 id="projects-heading">Projects</h2></div><span class="section-code mono" id="project-count">00 / PROJECTS</span></div>
+   <p class="section-lede">Design work, prototypes, computational experiments, and their implementation details.</p>
+   <div id="project-grid" class="project-grid"></div>
+  </section>
+  <section class="panel links" id="links" aria-labelledby="links-heading">
+   <div class="section-head"><div><span class="kicker mono">CONNECT / 04</span><h2 id="links-heading">Professional Links</h2></div><span class="section-code mono">04 / CONNECT</span></div>
+   <p class="section-lede">Profiles, publications, and technical resources.</p>
+   <div id="links-grid" class="links-grid"></div>
+  </section>
+ </main>
+ <footer class="footer mono"><span id="footer-name">Electrical Engineering Portfolio</span><span>ENGINEERING · DESIGN · COMPUTATION</span></footer>
+</div>
 </body>
 </html>

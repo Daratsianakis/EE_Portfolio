@@ -49,13 +49,13 @@
   if (!projects.length) projectGrid.appendChild(element("div", "empty-state", "Projects will appear here when added through the local editor."));
   projects.forEach((project, index) => {
     const card = element("article", "project-card");
-    const row = element("div", "flex justify-between items-center gap-3");
-    row.appendChild(element("span", "mono text-xs text-slate-500", `PROJECT_${String(index + 1).padStart(2, "0")}`));
-    if (project.featured) row.appendChild(element("span", "mono text-xs text-green-400", "FEATURED"));
+    const row = element("div", "project-meta");
+    row.appendChild(element("span", "mono project-index", `PROJECT_${String(index + 1).padStart(2, "0")}`));
+    if (project.featured) row.appendChild(element("span", "mono featured", "FEATURED"));
     card.appendChild(row);
     card.appendChild(element("h3", "", project.name || "Untitled Project"));
     card.appendChild(element("p", "", project.description || ""));
-    const tags = element("div", "flex flex-wrap gap-2");
+    const tags = element("div", "tags");
     for (const tag of (Array.isArray(project.tags) ? project.tags : [])) {
       if (tag) tags.appendChild(element("span", "tag", tag));
     }
@@ -78,7 +78,7 @@
     const a = link(url, "", "link-card");
     a.setAttribute("aria-label", `Open ${entry.name || "external link"} in a new tab`);
     a.appendChild(element("span", "link-icon mono", glyphs[entry.kind] || glyphs.other));
-    const details = element("div", "min-w-0");
+    const details = element("div", "link-details");
     details.appendChild(element("strong", "", entry.name || "Professional Link"));
     details.appendChild(element("small", "mono", new URL(url).hostname));
     a.appendChild(details);
